@@ -24,6 +24,13 @@ services:
       - "3000:3000"
     volumes:
       - ../:/app
+    develop:
+      watch:
+        - action: sync
+          path: ../src
+          target: /app/src
+        - action: rebuild
+          path: ../package.json
 
 volumes:
   mysql_data:
