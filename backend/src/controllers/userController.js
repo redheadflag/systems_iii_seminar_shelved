@@ -10,13 +10,14 @@ function signToken(user) {
 async function login(req, res, next) {
   const { username, password } = req.body;
 
-  if (username == null || password == null) {
+  if (!username || !password) {
     return res.status(400).json({ error: 'username and password are required' });
   }
 
-  const user = await userModel.findByUsername(username)
+  const user = await userModel.verifyUsername(username)
   const passwordMatches = await bcrypt.compare(password, user.password_hash);
-  if (user === null || !passwordMatches) {
+
+  if (!passwordMatches) {
     return res.status(401).json({ error: 'invalid credentials' });
   }
 
@@ -31,7 +32,7 @@ async function login(req, res, next) {
 async function signUp(req, res, next) {
     const { username, password } = req.body;
 
-    if (username == null || password == null) {
+    if (!username || !password) {
       return res.status(400).json({ error: 'username and password are required' });
     }
 
@@ -39,7 +40,7 @@ async function signUp(req, res, next) {
       return res.status(400).json({error: `password must be at least ${config.min_password_len} characters`});
     }
 
-    const isExistingUsername = await userModel.findByUsername(username);
+    const isExistingUsername = await userModel.verifyUsername(username);
     if (isExistingUsername) {
       return res.status(400).json({error: 'username already taken'});
     }
@@ -55,7 +56,19 @@ async function signUp(req, res, next) {
     });
 }
 
+async function getByUsername(req, res, next) {
+  const { username } = req.params;
+
+  const user = await userModel.findByUsername(username);
+  if (user === null) {
+    return res.status(404).json({ error: 'user not found' });
+  }
+
+  return res.status(200).json(user);
+}
+
 module.exports = {
   signUp,
   login,
+  getByUsername,
 };
