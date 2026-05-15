@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-  port: 3000,
+  port: 8000,
   min_password_len: process.env.MIN_PASSWORD_LENGTH,
   db: {
     host: process.env.DB_HOST,
