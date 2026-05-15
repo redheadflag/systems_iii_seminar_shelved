@@ -1,6 +1,6 @@
-const app = require('./app');
-const { port } = require('./config/config');
+import { listen } from './app';
+import { port } from './config/config';
 
-app.listen(port, () => {
+listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

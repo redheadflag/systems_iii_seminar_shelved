@@ -3,13 +3,15 @@ services:
     image: mysql:latest
     container_name: shelved_db
     restart: always
+    env_file:
+      - ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: shelved
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "${DB_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -19,18 +21,18 @@ services:
     depends_on:
       - db
     env_file:
-      - ../.env
+      - ./.env
     ports:
-      - "3000:3000"
+      - "${BACKEND_PORT}:8000"
     volumes:
-      - ../:/app
+      - ./:/app
     develop:
       watch:
         - action: sync
-          path: ../src
+          path: ./src
           target: /app/src
         - action: rebuild
-          path: ../package.json
+          path: ./package.json
 
 volumes:
   mysql_data:

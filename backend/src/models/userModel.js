@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+import pool from '../config/db';
 
 async function verifyUsername(username) {
   const [rows] = await pool.query(
@@ -24,7 +24,7 @@ async function create(username, passwordHash) {
   return { id: result.insertId, username };
 }
 
-module.exports = {
+export default {
   verifyUsername,
   findByUsername,
   create,

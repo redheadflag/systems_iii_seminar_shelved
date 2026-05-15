@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('../config/config');
-const userModel = require('../models/userModel');
+import { compare, hash } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import { jwt as _jwt, min_password_len } from '../config/config';
+import { verifyUsername, create, findByUsername } from '../models/userModel';
 
 function signToken(user) {
-  return jwt.sign({ userId: user.id }, config.jwt.secret);
+  return sign({ userId: user.id }, _jwt.secret);
 }
 
 async function login(req, res, next) {
@@ -14,8 +14,8 @@ async function login(req, res, next) {
     return res.status(400).json({ error: 'username and password are required' });
   }
 
-  const user = await userModel.verifyUsername(username)
-  const passwordMatches = await bcrypt.compare(password, user.password_hash);
+  const user = await verifyUsername(username)
+  const passwordMatches = await compare(password, user.password_hash);
 
   if (!passwordMatches) {
     return res.status(401).json({ error: 'invalid credentials' });
@@ -36,18 +36,18 @@ async function signUp(req, res, next) {
       return res.status(400).json({ error: 'username and password are required' });
     }
 
-    if (password.length < config.min_password_len) {
-      return res.status(400).json({error: `password must be at least ${config.min_password_len} characters`});
+    if (password.length < min_password_len) {
+      return res.status(400).json({error: `password must be at least ${min_password_len} characters`});
     }
 
-    const isExistingUsername = await userModel.verifyUsername(username);
+    const isExistingUsername = await verifyUsername(username);
     if (isExistingUsername) {
       return res.status(400).json({error: 'username already taken'});
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await hash(password, 10);
 
-    const user = await userModel.create(username, passwordHash);
+    const user = await create(username, passwordHash);
     const token = signToken(user);
 
     return res.status(201).json({
@@ -59,7 +59,7 @@ async function signUp(req, res, next) {
 async function getByUsername(req, res, next) {
   const { username } = req.params;
 
-  const user = await userModel.findByUsername(username);
+  const user = await findByUsername(username);
   if (user === null) {
     return res.status(404).json({ error: 'user not found' });
   }
@@ -67,7 +67,7 @@ async function getByUsername(req, res, next) {
   return res.status(200).json(user);
 }
 
-module.exports = {
+export default {
   signUp,
   login,
   getByUsername,
