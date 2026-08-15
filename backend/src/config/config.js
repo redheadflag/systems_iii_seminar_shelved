@@ -3,19 +3,19 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export const config = Object.freeze({
-  port: 8000,
+    port: 8000,
 
-  minPasswordLength: Number(process.env.MIN_PASSWORD_LENGTH),
+    minPasswordLength: Number(process.env.MIN_PASSWORD_LENGTH),
 
-  db: {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-  },
+    db: {
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+    },
 
-  jwt: {
-    secret: process.env.JWT_SECRET,
-  },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+    },
 })
