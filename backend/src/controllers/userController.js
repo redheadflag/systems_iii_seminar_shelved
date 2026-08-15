@@ -32,7 +32,7 @@ async function login(req, res, next) {
         })
     }
 
-    const token = signToken(user)
+    const token = signToken(user.id)
 
     return res.status(200).json({
         user_id: user.id,
@@ -51,9 +51,9 @@ async function signUp(req, res, next) {
         })
     }
 
-    if (password.length < min_password_len) {
+    if (password.length < config.minPasswordLength) {
         return res.status(400).json({
-            error: `password must be at least ${min_password_len} characters`
+            error: `password must be at least ${config.minPasswordLength} characters`
         })
     }
 
