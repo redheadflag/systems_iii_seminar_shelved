@@ -8,11 +8,23 @@ class UserRepository extends Repository{
     }
 
     async create(data) {
-        const userId = await super.create(data)
+        const connection = await pool.getConnection()
 
-        await profileRepository.create({ user_id: userId })
+        try {
+            await connection.beginTransaction()
 
-        return userId
+            const userId = await super.create(data, connection)
+            await profileRepository.create({ user_id: userId }, connection)
+
+            await connection.commit()
+
+            return userId
+        } catch (error) {
+            await connection.rollback()
+            throw error
+        } finally {
+            connection.release()
+        }
     }
 
     async getByUsername(username) {

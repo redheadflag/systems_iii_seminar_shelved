@@ -21,12 +21,12 @@ export default class Repository {
         return rows
     }
 
-    async create(data) {
+    async create(data, executor = pool) {
         const columns = Object.keys(data)
         const values = Object.values(data)
         const placeholders = columns.map(() => "?").join(", ")
 
-        const [result] = await pool.query(
+        const [result] = await executor.query(
             `INSERT INTO ${this.table}
              (${columns.join(", ")})
              VALUES (${placeholders})`,
