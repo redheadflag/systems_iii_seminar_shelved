@@ -18,4 +18,9 @@ export const config = Object.freeze({
     jwt: {
         secret: process.env.JWT_SECRET,
     },
+
+    storage: {
+        path: process.env.STORAGE_PATH,
+        maxFileSizeMb: Number(process.env.MAX_FILE_SIZE_MB),
+    },
 })

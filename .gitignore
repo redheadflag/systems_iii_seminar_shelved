@@ -178,6 +178,8 @@ dist
 
 node_modules
 
+backend/storage/
+
 *.sublime*
 
 psd
