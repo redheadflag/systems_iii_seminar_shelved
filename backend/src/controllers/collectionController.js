@@ -18,6 +18,14 @@ async function getById(req, res, next) {
 async function getByUserId(req, res, next) {
     const { userId } = req.params
 
+    const profile = await profileRepository.getByUserId(userId)
+
+    if (profile === null) {
+        return res.status(404).json({
+            error: 'User not found'
+        })
+    }
+
     const collections = await collectionRepository.getByUserId(userId)
 
     return res.status(200).json(collections)
