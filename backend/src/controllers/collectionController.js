@@ -1,10 +1,10 @@
 import collectionRepository from '../repositories/collectionRepository.js'
 import profileRepository from '../repositories/profileRepository.js'
 
-async function getById(req, res, next) {
+async function get(req, res, next) {
     const { id } = req.params
 
-    const collection = await collectionRepository.getById(id)
+    const collection = await collectionRepository.get(id)
 
     if (collection === null) {
         return res.status(404).json({
@@ -54,7 +54,7 @@ async function create(req, res, next) {
     if (is_public !== undefined) data.is_public = is_public
 
     const id = await collectionRepository.create(data)
-    const collection = await collectionRepository.getById(id)
+    const collection = await collectionRepository.get(id)
 
     return res.status(201).json(collection)
 }
@@ -62,7 +62,7 @@ async function create(req, res, next) {
 async function update(req, res, next) {
     const { id } = req.params
 
-    const existing = await collectionRepository.getById(id)
+    const existing = await collectionRepository.get(id)
 
     if (existing === null) {
         return res.status(404).json({
@@ -70,7 +70,7 @@ async function update(req, res, next) {
         })
     }
 
-    const profile = await profileRepository.getById(existing.profile_id)
+    const profile = await profileRepository.get(existing.profile_id)
 
     if (profile.user_id !== req.user.id) {
         return res.status(403).json({
@@ -86,7 +86,7 @@ async function update(req, res, next) {
     if (is_public !== undefined) data.is_public = is_public
 
     await collectionRepository.update(id, data)
-    const collection = await collectionRepository.getById(id)
+    const collection = await collectionRepository.get(id)
 
     return res.status(200).json(collection)
 }
@@ -94,7 +94,7 @@ async function update(req, res, next) {
 async function remove(req, res, next) {
     const { id } = req.params
 
-    const existing = await collectionRepository.getById(id)
+    const existing = await collectionRepository.get(id)
 
     if (existing === null) {
         return res.status(404).json({
@@ -102,7 +102,7 @@ async function remove(req, res, next) {
         })
     }
 
-    const profile = await profileRepository.getById(existing.profile_id)
+    const profile = await profileRepository.get(existing.profile_id)
 
     if (profile.user_id !== req.user.id) {
         return res.status(403).json({
@@ -116,7 +116,7 @@ async function remove(req, res, next) {
 }
 
 export {
-    getById,
+    get,
     getByUserId,
     create,
     update,

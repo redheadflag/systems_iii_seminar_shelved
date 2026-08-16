@@ -5,7 +5,7 @@ export default class Repository {
         this.table = table
     }
 
-    async getById(id) {
+    async get(id) {
         const [rows] = await pool.query(
             `SELECT * FROM ${this.table} WHERE id = ?`,
             [id]
