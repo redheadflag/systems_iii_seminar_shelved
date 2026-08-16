@@ -100,4 +100,5 @@ export {
     create,
     update,
     remove,
+    getDetailedCardResponse,
 }

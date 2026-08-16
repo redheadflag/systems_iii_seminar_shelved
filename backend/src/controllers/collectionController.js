@@ -1,5 +1,16 @@
+import cardRepository from '../repositories/cardRepository.js'
 import collectionRepository from '../repositories/collectionRepository.js'
 import profileRepository from '../repositories/profileRepository.js'
+import { getDetailedCardResponse } from './cardController.js'
+
+async function getDetailedCollectionResponse(collection) {
+    const cards = await cardRepository.getByCollectionId(collection.id)
+
+    return {
+        ...collection,
+        cards: await Promise.all(cards.map(getDetailedCardResponse)),
+    }
+}
 
 async function get(req, res, next) {
     const { id } = req.params
@@ -12,7 +23,7 @@ async function get(req, res, next) {
         })
     }
 
-    return res.status(200).json(collection)
+    return res.status(200).json(await getDetailedCollectionResponse(collection))
 }
 
 async function getByUserId(req, res, next) {
@@ -28,7 +39,7 @@ async function getByUserId(req, res, next) {
 
     const collections = await collectionRepository.getByUserId(userId)
 
-    return res.status(200).json(collections)
+    return res.status(200).json(await Promise.all(collections.map(getDetailedCollectionResponse)))
 }
 
 async function create(req, res, next) {
