@@ -5,8 +5,8 @@ export default class Repository {
         this.table = table
     }
 
-    async get(id) {
-        const [rows] = await pool.query(
+    async get(id, executor = pool) {
+        const [rows] = await executor.query(
             `SELECT * FROM ${this.table} WHERE id = ?`,
             [id]
           )
@@ -33,7 +33,7 @@ export default class Repository {
             values
         )
 
-        return result.insertId
+        return this.get(result.insertId, executor)
     }
 
     async update(id, data) {
