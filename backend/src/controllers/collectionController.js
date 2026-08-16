@@ -26,12 +26,6 @@ async function getByUserId(req, res, next) {
 async function create(req, res, next) {
     const { user_id, name, description, is_public } = req.body
 
-    if (!user_id || !name) {
-        return res.status(400).json({
-            error: 'user_id and name must be provided'
-        })
-    }
-
     if (Number(user_id) !== req.user.id) {
         return res.status(403).json({
             error: "You can only create collections for yourself"
