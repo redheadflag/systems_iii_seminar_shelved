@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "context/UserContext"
 
 export default function AppShell({ children }) {
+  const { isLogged, userId, username } = useContext(UserContext)
+  const navigate = useNavigate()
+
   return (
     <>
       <header className="topbar">
@@ -19,13 +24,23 @@ export default function AppShell({ children }) {
             </button>
           </div>
         </div>
-        <div className="topbar__right">
-          <button className="icon-btn">
-            <span className="material-symbols-outlined micon">notifications</span>
-            <span className="icon-btn__dot">?</span>
-          </button>
-          <div className="avatar avatar--sm">user</div>
-        </div>
+
+        {isLogged ? (
+          <div className="topbar__right">
+            <button className="icon-btn">
+              <span className="material-symbols-outlined micon">notifications</span>
+              <span className="icon-btn__dot">?</span>
+            </button>
+            <div className="avatar avatar--sm">{username.slice(0,2)}</div>
+          </div>
+        ) : (
+          <div className="topbar__right">
+            <button className="btn btn-primary btn-sm" onClick={() => navigate("/login")}>
+              <span className="material-symbols-outlined micon">login</span>
+              Log in
+            </button>
+          </div>
+        )}
       </header>
 
       <nav className="sidebar">
@@ -36,7 +51,7 @@ export default function AppShell({ children }) {
             </span>
             <span className="nav-item__label">Home</span>
           </Link>
-          <Link className="nav-item" to="/collections">
+          <Link className="nav-item" to={isLogged ? `/collections/${userId}` : "/login"}>
             <span className="nav-item__icon">
               <span className="material-symbols-outlined micon">style</span>
             </span>

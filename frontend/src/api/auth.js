@@ -12,12 +12,6 @@ function persistSession({ token, user_id }) {
     if (user_id != null) localStorage.setItem(USER_KEY, String(user_id))
 }
 
-function isLogged() {
-    return localStorage.getItem(TOKEN_KEY) !== null
-}
-
-
 export {
     login,
-    isLogged,
 }
