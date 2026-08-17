@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { UserContext } from "context/UserContext"
 
 export default function AppShell({ children }) {
-  const { isLogged, userId, username } = useContext(UserContext)
+  const { isLogged, username } = useContext(UserContext)
   const navigate = useNavigate()
 
   return (
@@ -51,16 +51,18 @@ export default function AppShell({ children }) {
             </span>
             <span className="nav-item__label">Home</span>
           </Link>
-          <Link className="nav-item" to={isLogged ? `/collections/${userId}` : "/login"}>
+          <Link className="nav-item" to={isLogged ? `/profile/${username}` : "/login"}>
             <span className="nav-item__icon">
-              <span className="material-symbols-outlined micon">style</span>
+              <span className="material-symbols-outlined micon">person</span>
             </span>
-            <span className="nav-item__label">My collections</span>
+            <span className="nav-item__label">My profile</span>
           </Link>
         </div>
       </nav>
 
-      <main className="main">{children}</main>
+      <main className="main">
+        <div className="page">{children}</div>
+      </main>
     </>
   );
 }
