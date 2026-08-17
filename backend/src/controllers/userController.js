@@ -92,11 +92,31 @@ async function getByUsername(req, res, next) {
         })
     }
 
-    return res.status(200).json(user)
+    const { password_hash, ...resUser } = user
+
+    return res.status(200).json(resUser)
+}
+
+
+async function get(req, res, next) {
+    const { id } = req.params
+
+    const user = await userRepository.get(id)
+
+    if (user === null) {
+        return res.status(404).json({
+            error: 'user not found'
+        })
+    }
+
+    const { password_hash, ...resUser } = user
+
+    return res.status(200).json(resUser)
 }
 
 export {
   signUp,
   login,
   getByUsername,
+  get
 }
