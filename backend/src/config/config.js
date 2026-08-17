@@ -23,4 +23,8 @@ export const config = Object.freeze({
         path: process.env.STORAGE_PATH,
         maxFileSizeMb: Number(process.env.MAX_FILE_SIZE_MB),
     },
+
+    cors: {
+        origin: process.env.CORS_ORIGIN,
+    },
 })
