@@ -8,6 +8,7 @@ import cardLikesRepository from '../repositories/cardLikesRepository.js'
 async function getDetailedCardResponse(card) {
     const comments = await commentsRepository.getByCardId(card.id)
     const cardLikes = await cardLikesRepository.getByCardId(card.id)
+    const collection = await collectionRepository.get(card.collection_id)
 
     const commentsWithLikes = await Promise.all(
         comments.map(async (comment) => ({
@@ -20,6 +21,7 @@ async function getDetailedCardResponse(card) {
         ...card,
         comments: commentsWithLikes,
         card_likes: cardLikes,
+        collection_name: collection?.name ?? null,
     }
 }
 

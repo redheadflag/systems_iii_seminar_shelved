@@ -3,7 +3,7 @@ import TileWrapper from "./TileWrapper";
 
 export default function CardTile({ item }) {
   return (
-    <TileWrapper to={`/items/${item.id}`}>
+    <TileWrapper to={`/item/${item.id}`}>
       <div className="card__thumb">
         {item.picture_media_id && (
           <img src={getMediaUrl(item.picture_media_id)} alt={item.title} />
