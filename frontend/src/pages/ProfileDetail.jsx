@@ -1,7 +1,7 @@
-import { getCollectionsByUserId } from "api/collection"
-import AppShell from "components/AppShell"
-import Collection from "components/Collection"
-import { UserContext } from "context/UserContext"
+import { getCollectionsByUserId } from "../api/collection"
+import AppShell from "../components/AppShell"
+import Collection from "../components/Collection"
+import { UserContext } from "../context/UserContext"
 import { useContext, useEffect, useState } from "react"
 
 export default function ProfileDetail() {

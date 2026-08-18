@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
-import { UserContext } from "context/UserContext"
+import { UserContext } from "../context/UserContext"
 
 export default function AppShell({ children }) {
   const { isLogged, username } = useContext(UserContext)
@@ -57,6 +57,14 @@ export default function AppShell({ children }) {
             </span>
             <span className="nav-item__label">My profile</span>
           </Link>
+          {isLogged && (
+            <Link className="nav-item" to="/collections/new">
+              <span className="nav-item__icon">
+                <span className="material-symbols-outlined micon">add</span>
+              </span>
+              <span className="nav-item__label">Add collection</span>
+            </Link>
+          )}
         </div>
       </nav>
 
