@@ -1,20 +1,20 @@
-import { Link, useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
-import CredentialsFormShell from "../components/CredentialsFormShell.jsx"
-import { UserContext } from "../context/UserContext.jsx"
+import { useContext, useState } from "react";
+import CredentialsFormShell from "../components/CredentialsFormShell";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-export default function Login() {
+export default function Register() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const { handleLogin } = useContext(UserContext)
+    const { handleRegistration } = useContext(UserContext)
 
     const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            await handleLogin(username, password)
+            await handleRegistration(username, password)
             navigate("/")
         }
         catch (err) {
@@ -23,7 +23,7 @@ export default function Login() {
     }
 
     return (
-        <CredentialsFormShell pageTitle={"Login"}>
+        <CredentialsFormShell pageTitle={"Register"}>
             <form className="auth__panel" onSubmit={handleSubmit}>
                 <div className="field">
                     <input
@@ -56,14 +56,9 @@ export default function Login() {
                     className="btn btn-primary btn-block btn-lg"
                     type="submit"
                 >
-                    Sign in
+                    Register
                 </button>
             </form>
-            <div className="auth__foot">
-                <div>
-                    You don't have an account? Click <Link to="/register">here</Link>
-                </div>
-            </div>
         </CredentialsFormShell>
     )
 }

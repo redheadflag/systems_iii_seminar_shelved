@@ -2,7 +2,12 @@ import { post, TOKEN_KEY, USER_KEY } from "./api"
 
 async function login(username, password) {
     const data = await post('/user/login', { username, password })
-    console.log(data)
+    persistSession(data)
+    return data
+}
+
+async function register(username, password) {
+    const data = await post('/user/sign-up', { username, password })
     persistSession(data)
     return data
 }
@@ -14,4 +19,5 @@ function persistSession({ token, user_id }) {
 
 export {
     login,
+    register
 }

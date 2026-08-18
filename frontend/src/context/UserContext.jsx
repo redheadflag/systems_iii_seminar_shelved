@@ -1,4 +1,4 @@
-import { login } from "../api/auth.js"
+import { login, register } from "../api/auth.js"
 import { getUser } from "../api/user.js"
 import { USER_KEY, TOKEN_KEY } from "../api/api.js"
 import { createContext, useEffect, useMemo, useState } from "react"
@@ -25,6 +25,13 @@ function UserProvider({children}) {
         setUsername(username)
     }
 
+    async function handleRegistration(username, password) {
+        const data = await register(username, password)
+        setUserId(String(data.user_id))
+        setToken(data.token)
+        setUsername(username)
+    }
+
     function handleLogout() {
         localStorage.removeItem(USER_KEY)
         localStorage.removeItem(TOKEN_KEY)
@@ -34,7 +41,7 @@ function UserProvider({children}) {
     }
 
     const value = useMemo(
-        () => ({ userId, token, username, isLogged: token !== null, handleLogin, handleLogout }),
+        () => ({ userId, token, username, isLogged: token !== null, handleLogin, handleLogout, handleRegistration }),
         [userId, username, token]
     )
 
