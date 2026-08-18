@@ -38,12 +38,22 @@ async function get(path, jwt=null) {
     return data
 }
 
-async function post(path, body) {
+async function post(path, body, jwt=null) {
+    let headers = {
+        'Content-Type': 'application/json'
+    }
+    if (jwt !== null) {
+        headers = {
+            ...headers,
+            'Authorization': `Bearer ${jwt}`
+        }
+    }
+
     let response = null
     try {
         response = await fetch(`${API_BASE_URL}${path}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(body),
         })
     } catch (err) {

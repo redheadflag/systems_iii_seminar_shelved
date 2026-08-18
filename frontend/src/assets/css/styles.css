@@ -649,6 +649,10 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
 .field__hint { font-size:12px; color:var(--text-dim); margin-top:6px; }
 .field__error { font-size:12px; color:var(--danger); margin-top:6px; font-weight:500; }
 
+.collection-form { padding-right: 1rem; }
+@media (min-width: 1200px) { .collection-form { padding-right: 40%; } }
+@media (min-width: 1900px) { .collection-form { padding-right: 65%; } }
+
 /* segmented control / radio cards */
 .choice-row { display:flex; gap:10px; flex-wrap:wrap; }
 .choice {
