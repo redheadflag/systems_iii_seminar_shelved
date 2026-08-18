@@ -5,9 +5,11 @@ import { getDetailedCardResponse } from './cardController.js'
 
 async function getDetailedCollectionResponse(collection) {
     const cards = await cardRepository.getByCollectionId(collection.id)
+    const profile = await profileRepository.get(collection.profile_id)
 
     return {
         ...collection,
+        user_id: profile.user_id,
         cards: await Promise.all(cards.map(getDetailedCardResponse)),
     }
 }
