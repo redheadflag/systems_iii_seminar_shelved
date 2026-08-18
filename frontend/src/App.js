@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import ProfileDetail from './pages/ProfileDetail';
 import Register from './pages/Register';
 import AddCollection from './pages/AddCollection';
+import CollectionDetail from './pages/CollectionDetail';
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
 
       <Route path="/profile/:id" element={ <ProfileDetail /> } />
       <Route path="/collections/new" element={ <AddCollection /> } />
-      <Route path="/collection/:id" />
+      <Route path="/collection/:id" element={ <CollectionDetail /> }/>
       <Route path="/card/:id" />
     </Routes>
   );

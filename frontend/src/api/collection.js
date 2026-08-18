@@ -1,5 +1,9 @@
 import { get, post } from "./api"
 
+async function getCollection(id, token) {
+    return await get(`/collections/${id}`, token)
+}
+
 async function getCollectionsByUserId(userId, token) {
     return await get(`/collections/user/${userId}`, token)
 }
@@ -11,4 +15,5 @@ async function createCollection({ name, description, is_public }, token) {
 export {
     getCollectionsByUserId,
     createCollection,
+    getCollection
 }

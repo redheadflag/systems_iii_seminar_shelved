@@ -71,9 +71,48 @@ async function post(path, body, jwt=null) {
     return data
 }
 
+async function postMedia(file, jwt=null) {
+    let headers = {}
+    if (jwt !== null) {
+        headers = {
+            'Authorization': `Bearer ${jwt}`
+        }
+    }
+
+    let response = null
+    const formData = new FormData()
+    formData.append('image', file)
+
+    try {
+        response = await fetch(`${API_BASE_URL}/media`, {
+        method: 'POST',
+        headers,
+        body: formData,
+        })
+    } catch (err) {
+        throw new Error('Could not reach the server')
+    }
+
+    let data = {}
+    try {
+        data = await response.json()
+    } catch (_) {}
+
+    if (!response.ok) {
+        throw new Error(data.error || `Request failed (${response.status})`)
+    }
+    return data
+}
+
+function getMediaUrl(id) {
+    return `${API_BASE_URL}/media/${id}`
+}
+
 export {
     post,
+    postMedia,
     get,
+    getMediaUrl,
     TOKEN_KEY,
     USER_KEY
 }
