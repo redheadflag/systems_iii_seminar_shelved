@@ -13,12 +13,12 @@ class UserRepository extends Repository{
         try {
             await connection.beginTransaction()
 
-            const userId = await super.create(data, connection)
-            await profileRepository.create({ user_id: userId }, connection)
+            const user = await super.create(data, connection)
+            await profileRepository.create({ user_id: user.id }, connection)
 
             await connection.commit()
 
-            return userId
+            return user
         } catch (error) {
             await connection.rollback()
             throw error
