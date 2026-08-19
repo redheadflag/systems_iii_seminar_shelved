@@ -82,7 +82,7 @@ export default function AddCard() {
         <AppShell>
             <form className="add-form" onSubmit={handleSubmit}>
                 <h1 className="mb-2">Add Card</h1>
-                <h3 className="mb-4">For <Link className="add_card__sub" to={`/collection/${collectionId}`}><code>{ collection.name }</code></Link> collection</h3>
+                <h3 className="mb-4">To <Link className="add_card__sub" to={`/collection/${collectionId}`}><code>{ collection.name }</code></Link> collection</h3>
 
                 <div className="field">
                     <label>Name</label>

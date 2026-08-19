@@ -14,6 +14,20 @@ function colorFromString(str) {
     return `hsl(${hue}, 35%, ${lightness}%)`
 }
 
+function pastelColorFromString(str) {
+    const hash = hashString(str)
+    const hue = hash % 360
+    return `hsl(${hue}, 65%, 88%)`
+}
+
+function pastelTextColorFromString(str) {
+    const hash = hashString(str)
+    const hue = hash % 360
+    return `hsl(${hue}, 45%, 32%)`
+}
+
 export {
     colorFromString,
+    pastelColorFromString,
+    pastelTextColorFromString,
 }

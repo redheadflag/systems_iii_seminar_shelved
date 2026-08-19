@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { getInitials } from "../utils/text";
+import { pastelColorFromString, pastelTextColorFromString } from "../utils/color";
 
 export default function Collection({ collection }) {
   let cardCount = 0
@@ -9,7 +11,10 @@ export default function Collection({ collection }) {
   return (
     <div className="tile">
       <Link className="card__link" to={`/collection/${collection.id}`}>
-        <div className="cover cover--card">
+        <div className="cover cover--card" style={{ background: pastelColorFromString(collection.name) }}>
+          <span className="cover__initials" style={{ color: pastelTextColorFromString(collection.name) }}>
+            {getInitials(collection.name)}
+          </span>
           <div className="cover__badges">
             <span className="cover__badge">{cardCount} item{cardCount === 1 ? '' : 's'}</span>
             <span className="cover__visibility">{collection.is_public ? 'Public' : 'Private'}</span>

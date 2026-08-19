@@ -538,6 +538,9 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
   border: 1px solid var(--border);
   box-shadow: 5px 5px 0 -1px var(--bg), 6px 6px 0 0 var(--border);
 }
+.cover__initials {
+  font-family:"Onest"; font-weight:700; font-size:40px; letter-spacing:1px;
+}
 .cover__badges {
   position:absolute; left:8px; bottom:8px;
   display:flex; align-items:center; gap:6px;

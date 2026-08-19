@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getCollection } from "../api/collection";
+import { getUser } from "../api/user";
 import AppShell from "../components/AppShell";
 import CardTile from "../components/CardTile";
 import EmptyCardTile from "../components/EmptyCardTile";
@@ -12,12 +13,15 @@ export default function CollectionDetail() {
     const [isOwner, setIsOwner] = useState(false)
 
     const [collection, setCollection] = useState()
+    const [owner, setOwner] = useState()
     useEffect(() => {
         getCollection(collectionId)
             .then((res) => {
                 setCollection(res)
                 setIsOwner(String(res.user_id) === userId)
+                return getUser(res.user_id)
             })
+            .then(setOwner)
             .catch(() => {})
     }, [collectionId, userId])
 
@@ -27,6 +31,7 @@ export default function CollectionDetail() {
 
     return (
         <AppShell>
+            <h2 className="mb-4">{collection.name} {owner && <span>by <Link className="muted" to={`/profile/${owner.username}`}>{owner.username}</Link></span>}</h2>
             {collection.cards.length === 0 && !isOwner ? (
                 <div className="empty">
                     <div className="empty__icon">
