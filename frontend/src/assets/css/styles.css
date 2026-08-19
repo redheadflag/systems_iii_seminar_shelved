@@ -513,6 +513,8 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
 .card__link { display:block; border-radius: var(--r-md); }
 .card__link:hover .card__thumb { transform: translateY(-2px); }
 
+.add_card__sub { color:var(--text-muted); }
+
 /* Collection cover */
 .cover {
   position:relative; aspect-ratio:16/9; border-radius:var(--r-md); overflow:hidden;
@@ -666,9 +668,9 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
 .field__hint { font-size:12px; color:var(--text-dim); margin-top:6px; }
 .field__error { font-size:12px; color:var(--danger); margin-top:6px; font-weight:500; }
 
-.collection-form { padding-right: 1rem; }
-@media (min-width: 1200px) { .collection-form { padding-right: 40%; } }
-@media (min-width: 1900px) { .collection-form { padding-right: 65%; } }
+.add-form { padding-right: 1rem; }
+@media (min-width: 1200px) { .add-form { padding-right: 40%; } }
+@media (min-width: 1900px) { .add-form { padding-right: 65%; } }
 
 /* segmented control / radio cards */
 .choice-row { display:flex; gap:10px; flex-wrap:wrap; }

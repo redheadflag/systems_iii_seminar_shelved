@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import AddCollection from './pages/AddCollection';
 import CollectionDetail from './pages/CollectionDetail';
 import CardDetail from './pages/CardDetail';
+import AddCard from './pages/AddCard';
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
       <Route path="/profile/:id" element={ <ProfileDetail /> } />
       <Route path="/collections/new" element={ <AddCollection /> } />
       <Route path="/collection/:id" element={ <CollectionDetail /> }/>
+      <Route path="/collection/:collectionId/add" element={ <AddCard /> } />
+      
       <Route path="/item/:id" element={ <CardDetail /> } />
     </Routes>
   );

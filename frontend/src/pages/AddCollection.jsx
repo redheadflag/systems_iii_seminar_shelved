@@ -52,7 +52,7 @@ export default function AddCollection() {
                         className="form-control"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
-                        placeholder="What's this collection about?"
+                        placeholder="Description of the collection"
                         rows={3}
                     />
                 </div>
