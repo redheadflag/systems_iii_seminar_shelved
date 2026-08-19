@@ -1,6 +1,7 @@
 import pool from '../config/db.js';
 import Repository from './repository.js';
 import profileRepository from './profileRepository.js'
+import followersRepository from './followersRepository.js'
 
 class UserRepository extends Repository{
     constructor() {
@@ -39,6 +40,8 @@ class UserRepository extends Repository{
         }
 
         user.profile = await profileRepository.getByUserId(user.id)
+        user.followers_count = await followersRepository.countFollowers(user.id)
+        user.following_count = await followersRepository.countFollowing(user.id)
 
         return user
     }
