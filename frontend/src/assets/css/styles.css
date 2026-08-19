@@ -450,6 +450,17 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
 .avatar--md { width:48px; height:48px; font-size:18px; }
 .avatar--lg { width:80px; height:80px; font-size:30px; }
 .avatar--xl { width:128px; height:128px; font-size:46px; border:4px solid var(--bg); }
+.avatar img { width:100%; height:100%; object-fit:cover; }
+
+.user-profile { display:flex; align-items:center; gap:10px; }
+.user-profile__name { font-family:"Onest"; font-weight:500; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.user-profile--profile { flex-direction:column; gap:16px; text-align:center; }
+.user-profile--profile .user-profile__name { font-size:24px; font-weight:700; white-space:normal; }
+
+.user-profile--comment .user-profile__name { font-size:14px; }
+
+.user-profile--topbar .user-profile__name { font-size:13px; color:var(--text-muted); max-width:120px; }
 
 /* =============================================================================
    Media grid + item tiles  (bespoke; auto-fill grid Bootstrap can't express)
@@ -527,8 +538,11 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
   border: 1px solid var(--border);
   box-shadow: 5px 5px 0 -1px var(--bg), 6px 6px 0 0 var(--border);
 }
-.cover__badge {
+.cover__badges {
   position:absolute; left:8px; bottom:8px;
+  display:flex; align-items:center; gap:6px;
+}
+.cover__badge, .cover__visibility {
   background: rgba(0,0,0,.72); color:#fff;
   font-size:11px; font-weight:600; padding:3px 8px; border-radius: var(--r-pill);
 }

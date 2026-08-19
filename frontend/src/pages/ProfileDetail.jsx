@@ -1,25 +1,49 @@
 import { getCollectionsByUserId } from "../api/collection"
+import { getUserByUsername } from "../api/user"
 import AppShell from "../components/AppShell"
 import Collection from "../components/Collection"
+import UserProfile from "../components/UserProfile"
 import { UserContext } from "../context/UserContext"
 import { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 export default function ProfileDetail() {
-    const { userId, token } = useContext(UserContext)
+    const { username } = useParams()
+    const { token } = useContext(UserContext)
+    const [profileUser, setProfileUser] = useState(null)
     const [collections, setCollections] = useState()
 
-    useEffect( // load user's collections
+    useEffect(
         () => {
-            getCollectionsByUserId(userId, token)
+            getUserByUsername(username, token)
+                .then(data => setProfileUser(data))
+                .catch(() => {})
+        },
+        [username, token]
+    )
+
+    useEffect(
+        () => {
+            if (!profileUser) return
+
+            getCollectionsByUserId(profileUser.id, token)
                 .then(data => setCollections(data))
                 .catch(() => {})
         },
-        [userId, token]
+        [profileUser, token]
     )
 
     return (
         <>
             <AppShell>
+                <UserProfile variant="profile" user={profileUser} className="mb-2" />
+
+                {profileUser && (
+                    <p className="muted text-center mb-4">
+                        {profileUser.followers_count} followers · {profileUser.following_count} following
+                    </p>
+                )}
+
                 {collections?.length > 0 ? (
                     <div className="grid grid--lg">
                         {collections.map(collection => (

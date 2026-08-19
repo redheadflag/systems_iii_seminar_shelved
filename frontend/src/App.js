@@ -17,11 +17,11 @@ function App() {
       <Route path="/register" element={ <Register /> } />
       <Route path="logout" />
 
-      <Route path="/profile/:id" element={ <ProfileDetail /> } />
+      <Route path="/profile/:username" element={ <ProfileDetail /> } />
       <Route path="/collections/new" element={ <AddCollection /> } />
       <Route path="/collection/:id" element={ <CollectionDetail /> }/>
       <Route path="/collection/:collectionId/add" element={ <AddCard /> } />
-      
+
       <Route path="/item/:id" element={ <CardDetail /> } />
     </Routes>
   );

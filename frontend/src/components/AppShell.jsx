@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../context/UserContext"
+import UserProfile from "./UserProfile"
 
 export default function AppShell({ children }) {
   const { isLogged, username } = useContext(UserContext)
@@ -31,7 +32,7 @@ export default function AppShell({ children }) {
               <span className="material-symbols-outlined micon">notifications</span>
               <span className="icon-btn__dot">?</span>
             </button>
-            <div className="avatar avatar--sm">{username.slice(0,2)}</div>
+            <UserProfile variant="topbar" user={{ username }} />
           </div>
         ) : (
           <div className="topbar__right">

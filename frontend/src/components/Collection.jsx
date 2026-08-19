@@ -10,16 +10,14 @@ export default function Collection({ collection }) {
     <div className="tile">
       <Link className="card__link" to={`/collection/${collection.id}`}>
         <div className="cover cover--card">
-          <span className="cover__badge">{cardCount} item{cardCount === 1 ? '' : 's'}</span>
+          <div className="cover__badges">
+            <span className="cover__badge">{cardCount} item{cardCount === 1 ? '' : 's'}</span>
+            <span className="cover__visibility">{collection.is_public ? 'Public' : 'Private'}</span>
+          </div>
         </div>
         <div className="card__body">
           <div className="card__meta">
             <div className="card__title truncate">{collection.name}</div>
-            <div className="card__sub-line">
-              <span className={`badge badge--outline`}>
-                {collection.is_public ? 'Public' : 'Private'}
-              </span>
-            </div>
           </div>
         </div>
       </Link>
