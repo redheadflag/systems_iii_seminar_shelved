@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export const config = Object.freeze({
-    port: 8000,
+    port: process.env.PLAIN_BACKEND_PORT,
 
     minPasswordLength: Number(process.env.MIN_PASSWORD_LENGTH),
 

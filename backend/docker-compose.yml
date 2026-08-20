@@ -23,7 +23,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "${BACKEND_PORT}:8000"
+      - "${BACKEND_PORT}:${PLAIN_BACKEND_PORT}"
     volumes:
       - ./:/app
     develop:
