@@ -1,7 +1,18 @@
+import { useEffect, useState } from "react"
 import AppShell from "../components/AppShell"
+import CardTile from "../components/CardTile"
+import { getLatestCards } from "../api/card"
 
 
 export default function Home() {
+    const [latestCards, setLatestCards] = useState([])
+
+    useEffect(() => {
+        getLatestCards()
+            .then(setLatestCards)
+            .catch(() => {})
+    }, [])
+
     return (
         <>
             <AppShell>
@@ -20,8 +31,21 @@ export default function Home() {
                             And for the most discerning collectors, a feature allowing exchanges with other users is coming soon.
                         </p>
                     </div>
+
+                    {latestCards.length > 0 && (
+                        <>
+                            <div className="section-head">
+                                <h2>Newest items</h2>
+                            </div>
+                            <div className="grid grid--wide">
+                                {latestCards.map(card => (
+                                    <CardTile key={card.id} item={card} />
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             </AppShell>
-        </>  
-    ) 
+        </>
+    )
 }
