@@ -22,7 +22,7 @@ export default function CommentList({ comments, handleCommentSubmit }) {
         <div className="comments">
             <h3 className="comments__head">{comments?.length} Comment{comments?.length === 1 ? '' : 's'}</h3>
 
-            {isLogged && (
+            {isLogged ? (
                 <form className="comment-compose" onSubmit={handleSubmit}>
                     <UserProfile user={{ username }} variant="comment" />
                     <div className="comment-compose__body">
@@ -40,7 +40,7 @@ export default function CommentList({ comments, handleCommentSubmit }) {
                         </div>
                     </div>
                 </form>
-            )}
+            ) : <div className="mb-4">Log in to leave comments</div>}
 
             {comments && comments.map((e) => (
                 <Comment key={e.id} user={e.user} text={e.comment} />
