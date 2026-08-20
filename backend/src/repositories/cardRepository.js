@@ -13,6 +13,14 @@ class CardRepository extends Repository{
         )
         return rows
     }
+
+    async getLatest(limit) {
+        const [rows] = await pool.query(
+            `SELECT * FROM ${this.table} ORDER BY created_at DESC LIMIT ?`,
+            [limit]
+        )
+        return rows
+    }
 }
 
 const cardRepository = new CardRepository()

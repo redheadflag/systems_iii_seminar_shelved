@@ -51,6 +51,12 @@ async function list(req, res, next) {
     return res.status(200).json(await Promise.all(cards.map(getDetailedCardResponse)))
 }
 
+async function latest(req, res, next) {
+    const cards = await cardRepository.getLatest(3)
+
+    return res.status(200).json(await Promise.all(cards.map(getDetailedCardResponse)))
+}
+
 async function create(req, res, next) {
     const { collection_id, title, description, picture_media_id, is_tradeable } = req.body
 
@@ -101,6 +107,7 @@ async function remove(req, res, next) {
 export {
     get,
     list,
+    latest,
     create,
     update,
     remove,
