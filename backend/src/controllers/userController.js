@@ -72,7 +72,7 @@ async function signUp(req, res, next) {
         password_hash: passwordHash
     })
 
-    const token = signToken(user)
+    const token = signToken(user.id)
 
     return res.status(201).json({
         user_id: user.id,
