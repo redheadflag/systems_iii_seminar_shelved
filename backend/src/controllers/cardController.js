@@ -4,6 +4,7 @@ import profileRepository from '../repositories/profileRepository.js'
 import commentsRepository from '../repositories/commentsRepository.js'
 import commentLikesRepository from '../repositories/commentLikesRepository.js'
 import cardLikesRepository from '../repositories/cardLikesRepository.js'
+import userRepository from '../repositories/userRepository.js'
 
 async function getDetailedCardResponse(card) {
     const comments = await commentsRepository.getByCardId(card.id)
@@ -14,6 +15,7 @@ async function getDetailedCardResponse(card) {
         comments.map(async (comment) => ({
             ...comment,
             likes: await commentLikesRepository.getByCommentId(comment.id),
+            user: await userRepository.get(comment.user_id),
         }))
     )
 

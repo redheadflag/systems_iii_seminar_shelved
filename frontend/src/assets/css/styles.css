@@ -632,7 +632,7 @@ body[data-nav="mini"] .main { margin-left: var(--sidebar-mini-w); }
    ============================================================================= */
 .comments { margin-top:32px; }
 .comments__head { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
-.comments__head h3 { font-size:18px; font-family:"Onest"; }
+.comments__head h3 { font-size:14px; font-family:"Onest"; }
 .comment-compose { display:flex; gap:12px; margin-bottom:24px; }
 .comment-compose__body { flex:1 1 auto; }
 .comment-input {

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getCard } from "../api/card";
 import { getMediaUrl } from "../api/api";
 import AppShell from "../components/AppShell";
+import CommentList from "../components/CommentList";
 
 export default function CardDetail() {
     const cardId = useParams().id
@@ -42,6 +43,7 @@ export default function CardDetail() {
                         </div>
                         {item.description && <p>{item.description}</p>}
                     </div>
+                    <CommentList comments={item.comments}  />
                 </div>
             </div>
         </AppShell>
