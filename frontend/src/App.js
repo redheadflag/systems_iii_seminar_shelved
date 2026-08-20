@@ -7,6 +7,7 @@ import AddCollection from './pages/AddCollection';
 import CollectionDetail from './pages/CollectionDetail';
 import CardDetail from './pages/CardDetail';
 import AddCard from './pages/AddCard';
+import Search from './pages/Search';
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
       <Route path="/collection/:collectionId/add" element={ <AddCard /> } />
 
       <Route path="/item/:id" element={ <CardDetail /> } />
+
+      <Route path="/search" element={ <Search /> } />
     </Routes>
   );
 }

@@ -32,6 +32,7 @@ export default function CollectionDetail() {
     return (
         <AppShell>
             <h2 className="mb-4">{collection.name} {owner && <span>by <Link className="muted" to={`/profile/${owner.username}`}>{owner.username}</Link></span>}</h2>
+            {collection.description && <p className="muted mb-4" style={{ fontSize: '2em' }}>{collection.description}</p>}
             {collection.cards.length === 0 && !isOwner ? (
                 <div className="empty">
                     <div className="empty__icon">

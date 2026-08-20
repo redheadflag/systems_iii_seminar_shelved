@@ -1,11 +1,18 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext"
 import UserProfile from "./UserProfile"
 
 export default function AppShell({ children }) {
   const { isLogged, username } = useContext(UserContext)
   const navigate = useNavigate()
+  const [query, setQuery] = useState("")
+
+  function handleSearchSubmit(e) {
+    e.preventDefault()
+    if (!query.trim()) return
+    navigate(`/search?q=${encodeURIComponent(query.trim())}`)
+  }
 
   return (
     <>
@@ -16,14 +23,19 @@ export default function AppShell({ children }) {
           </Link>
         </div>
         <div className="topbar__center">
-          <div className="search">
+          <form className="search" onSubmit={handleSearchSubmit}>
             <div className="search__field">
-              <input className="search__input" placeholder="Search collections, cards..." />
+              <input
+                className="search__input"
+                placeholder="Search collections, cards..."
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+              />
             </div>
-            <button className="search__btn">
+            <button className="search__btn" type="submit">
               <span className="material-symbols-outlined micon">search</span>
             </button>
-          </div>
+          </form>
         </div>
 
         {isLogged ? (
