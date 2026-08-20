@@ -1,7 +1,7 @@
 import { getMediaUrl } from "../api/api"
 import { colorFromString } from "../utils/color"
 
-export default function UserProfile({ user, variant = "topbar", className = "" }) {
+export default function UserProfile({ user, variant = "topbar", className = "", showName = true }) {
     if (!user?.username) return null
 
     const { username, profile } = user
@@ -25,7 +25,7 @@ export default function UserProfile({ user, variant = "topbar", className = "" }
                     <img src={getMediaUrl(mediaId)} alt={username} />
                 ) : username.slice(0, 2)}
             </div>
-            <span className="user-profile__name">{username}</span>
+            {showName && <span className="user-profile__name">{username}</span>}
         </div>
     )
 }

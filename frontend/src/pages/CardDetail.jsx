@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getCard } from "../api/card";
+import { createComment } from "../api/comment";
 import { getMediaUrl } from "../api/api";
 import AppShell from "../components/AppShell";
 import CommentList from "../components/CommentList";
+import { UserContext } from "../context/UserContext";
 
 export default function CardDetail() {
     const cardId = useParams().id
+    const { token, userId } = useContext(UserContext)
 
     const [item, setItem] = useState()
     useEffect(() => {
@@ -14,6 +17,12 @@ export default function CardDetail() {
             .then((res) => setItem(res))
             .catch(() => {})
     }, [cardId])
+
+    async function handleCommentSubmit(text) {
+        await createComment({ card_id: cardId, user_id: userId, comment: text }, token)
+        const updatedCard = await getCard(cardId)
+        setItem(updatedCard)
+    }
 
     if (!item) {
         return null
@@ -43,7 +52,7 @@ export default function CardDetail() {
                         </div>
                         {item.description && <p>{item.description}</p>}
                     </div>
-                    <CommentList comments={item.comments}  />
+                    <CommentList comments={item.comments} handleCommentSubmit={handleCommentSubmit} />
                 </div>
             </div>
         </AppShell>
