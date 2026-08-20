@@ -88,4 +88,5 @@ export {
     create,
     update,
     remove,
+    getDetailedCollectionResponse,
 }

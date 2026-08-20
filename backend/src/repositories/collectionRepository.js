@@ -15,6 +15,15 @@ class CollectionRepository extends Repository{
         )
         return rows
     }
+
+    async search(term, limit) {
+        const pattern = `%${term}%`
+        const [rows] = await pool.query(
+            `SELECT * FROM ${this.table} WHERE name LIKE ? OR description LIKE ? ORDER BY created_at DESC LIMIT ?`,
+            [pattern, pattern, limit]
+        )
+        return rows
+    }
 }
 
 const collectionRepository = new CollectionRepository()

@@ -6,6 +6,7 @@ import collectionRoutes from './routes/collectionRoutes.js';
 import cardRoutes from './routes/cardRoutes.js';
 import mediaRoutes from './routes/mediaRoutes.js';
 import commentsRoutes from './routes/commentRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use('/collections', collectionRoutes)
 app.use('/cards', cardRoutes)
 app.use('/comments/', commentsRoutes)
 app.use('/media', mediaRoutes)
+app.use('/search', searchRoutes)
 
 export default app;
